@@ -23,3 +23,18 @@ D:\Data\Desktop Folders\Simulations\Visual Studio\paho.mqtt.m2mqtt-master\bin\De
 D:\Data\Desktop Folders\Simulations\Visual Studio\paho.mqtt.m2mqtt-master\bin\Debug\M2Mqtt.Net\M2Mqtt.Net.application
 D:\Data\Desktop Folders\Simulations\Visual Studio\paho.mqtt.m2mqtt-master\M2Mqtt\obj\Debug\M2Mqtt.Net.exe.manifest
 D:\Data\Desktop Folders\Simulations\Visual Studio\paho.mqtt.m2mqtt-master\M2Mqtt\obj\Debug\M2Mqtt.Net.application
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\bin\Debug\M2Mqtt.Net\M2Mqtt.Net.exe.manifest
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\bin\Debug\M2Mqtt.Net\M2Mqtt.Net.application
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\bin\Debug\M2Mqtt.Net\M2Mqtt.Net.exe
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\bin\Debug\M2Mqtt.Net\M2Mqtt.Net.pdb
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.csproj.AssemblyReference.cache
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.csproj.ResolveComReference.cache
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\MQTTHandler.MainForm.resources
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\uPLibrary.Networking.M2Mqtt.Properties.Resources.resources
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.csproj.GenerateResource.cache
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.csproj.CoreCompileInputs.cache
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.exe.manifest
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.application
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.csproj.CopyComplete
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.exe
+E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\UI_2\UI-preTCP\obj\Debug\M2Mqtt.Net.pdb

@@ -415,16 +415,18 @@ namespace MQTTHandler
             {
                 if (choose == true)
                 {
+                    client.Publish("control/auto", Encoding.UTF8.GetBytes("StartWaypoint"));
                     int k = 1;
                     ListBox1.Items.Add("Sending chosen waypoints...");
                     while (k < waynum)
                     {
-                        client.Publish("control/auto", Encoding.UTF8.GetBytes(waylon[k] + "," + waylat[k]));
+                        client.Publish("control/auto", Encoding.UTF8.GetBytes(waylat[k] + "," + waylon[k]));
                         SetText1(">> Waypoint" + k + ": Sent.");
                         k++;
                     }
+                    client.Publish("control/auto", Encoding.UTF8.GetBytes("EndWaypoint"));
                     SetText1("");
-                    choose = false;
+                    //choose = false;
                 }
                 else
                 {

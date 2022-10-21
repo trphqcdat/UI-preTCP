@@ -42,18 +42,6 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AxInterop.MapWinGIS.dll" size="72704">
-      <assemblyIdentity name="AxInterop.MapWinGIS" version="5.3.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>N7LhUyC7/7raqvgn3ET29c9FYKg=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GMap.NET.Core.dll" size="2193920">
       <assemblyIdentity name="GMap.NET.Core" version="1.6.0.0" publicKeyToken="B85B9027B614AFEF" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -78,26 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Interop.MapWinGIS.dll" size="448000">
-      <assemblyIdentity name="Interop.MapWinGIS" version="5.3.0.0" language="neutral" processorArchitecture="msil" />
-      <hash>
-        <dsig:Transforms>
-          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
-        </dsig:Transforms>
-        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>RzhdRGNFtwGrO9UcqMOz6guu+Mc=</dsig:DigestValue>
-      </hash>
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="M2Mqtt.Net.exe" size="153520">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="M2Mqtt.Net.exe" size="154032">
       <assemblyIdentity name="M2Mqtt.Net" version="4.3.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>FMEdb73s8Aqyo5irsmyD+pIWAWs=</dsig:DigestValue>
+        <dsig:DigestValue>UCloeeQMVlwslNEinLG3ZIO6aak=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
