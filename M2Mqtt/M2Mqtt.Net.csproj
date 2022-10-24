@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A11AEF5A-B246-4FE8-8330-06DB73CC8074}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>uPLibrary.Networking.M2Mqtt</RootNamespace>
+    <AssemblyName>M2Mqtt.Net</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\M2Mqtt.Net</OutputPath>
+    <DefineConstants>TRACE;DEBUG;SSL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\M2Mqtt.Net</OutputPath>
+    <DefineConstants>TRACE;SSL</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>5386E2BA4EF77919B5BD4769093C8BE44467E88C</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>M2Mqtt.Net_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GMap.NET.Core">
+      <HintPath>GMap.NET-master\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms">
+      <HintPath>GMap.NET-master\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Exceptions\MqttClientException.cs" />
+    <Compile Include="Exceptions\MqttCommunicationException.cs" />
+    <Compile Include="Exceptions\MqttConnectionException.cs" />
+    <Compile Include="Exceptions\MqttTimeoutException.cs" />
+    <Compile Include="IMqttNetworkChannel.cs" />
+    <Compile Include="Internal\InternalEvent.cs" />
+    <Compile Include="Internal\MsgInternalEvent.cs" />
+    <Compile Include="Internal\MsgPublishedInternalEvent.cs" />
+    <Compile Include="MainClient.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainClient.Designer.cs">
+      <DependentUpon>MainClient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\MqttMsgBase.cs" />
+    <Compile Include="Messages\MqttMsgConnack.cs" />
+    <Compile Include="Messages\MqttMsgConnect.cs" />
+    <Compile Include="Messages\MqttMsgConnectEventArgs.cs" />
+    <Compile Include="Messages\MqttMsgContext.cs" />
+    <Compile Include="Messages\MqttMsgDisconnect.cs" />
+    <Compile Include="Messages\MqttMsgPingReq.cs" />
+    <Compile Include="Messages\MqttMsgPingResp.cs" />
+    <Compile Include="Messages\MqttMsgPuback.cs" />
+    <Compile Include="Messages\MqttMsgPubcomp.cs" />
+    <Compile Include="Messages\MqttMsgPublish.cs" />
+    <Compile Include="Messages\MqttMsgPublishedEventArgs.cs" />
+    <Compile Include="Messages\MqttMsgPublishEventArgs.cs" />
+    <Compile Include="Messages\MqttMsgPubrec.cs" />
+    <Compile Include="Messages\MqttMsgPubrel.cs" />
+    <Compile Include="Messages\MqttMsgSuback.cs" />
+    <Compile Include="Messages\MqttMsgSubscribe.cs" />
+    <Compile Include="Messages\MqttMsgSubscribedEventArgs.cs" />
+    <Compile Include="Messages\MqttMsgSubscribeEventArgs.cs" />
+    <Compile Include="Messages\MqttMsgUnsuback.cs" />
+    <Compile Include="Messages\MqttMsgUnsubscribe.cs" />
+    <Compile Include="Messages\MqttMsgUnsubscribedEventArgs.cs" />
+    <Compile Include="Messages\MqttMsgUnsubscribeEventArgs.cs" />
+    <Compile Include="MqttClient.cs" />
+    <Compile Include="MqttSecurity.cs" />
+    <Compile Include="Net\Fx.cs" />
+    <Compile Include="Net\MqttNetworkChannel.cs" />
+    <Compile Include="MqttSettings.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Session\MqttBrokerSession.cs" />
+    <Compile Include="Session\MqttClientSession.cs" />
+    <Compile Include="Session\MqttSession.cs" />
+    <Compile Include="Utility\Trace.cs" />
+    <Compile Include="Utility\QueueExtension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainClient.resx">
+      <DependentUpon>MainClient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxMapWinGIS">
+      <Guid>{C368D713-CC5F-40ED-9F53-F84FE197B96A}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="MapWinGIS">
+      <Guid>{C368D713-CC5F-40ED-9F53-F84FE197B96A}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="M2Mqtt.Net_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Resources\HCMCUT.svg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
