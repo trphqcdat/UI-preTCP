@@ -133,7 +133,6 @@ namespace MQTTHandler
                 ListBox5.TopIndex = ListBox5.Items.Count - 1;
             }
         }
-
         private void SetText6(string text)
         {
             if (this.ListBox6.InvokeRequired)
@@ -451,28 +450,40 @@ namespace MQTTHandler
             {
                 if (auto == false)
                 {
-                    client.Publish("control/auto", Encoding.UTF8.GetBytes("start"));
-                    ListBox1.Items.Add("Publishing on: control/auto");
+                    if (Client.conn_TCP == true)
+                    {
+                        ASCIIEncoding encoder = new ASCIIEncoding();
+                        string s = "u,data,auto_start";
+                        TCPclient.SendImmediate(encoder.GetBytes(s));
+                        ListBox1.Items.Add("Sending auto signal to server.");
+                        SetText1("");
+                    }
+                    else
+                    {
+                        client.Publish("control/auto", Encoding.UTF8.GetBytes("start"));
+                        ListBox1.Items.Add("Publishing on: control/auto");
+                    }
                     ListBox1.Items.Add(">> Starting the auto mode");
                     SetText1("");
                     button_auto.Text = "Stop Auto mode";
-
-                    ASCIIEncoding encoder = new ASCIIEncoding();
-                    string s = "u,data,auto_start";
-                    TCPclient.SendImmediate(encoder.GetBytes(s));
                     auto = true;
                 }
                 else
                 {
-                    client.Publish("control/auto", Encoding.UTF8.GetBytes("stop"));
+                    if (Client.conn_TCP == true)
+                    {
+                        ASCIIEncoding encoder = new ASCIIEncoding();
+                        string s = "u,auto_stop";
+                        TCPclient.SendImmediate(encoder.GetBytes(s));
+                    }
+                    else
+                    {
+                        client.Publish("control/auto", Encoding.UTF8.GetBytes("stop"));
+                    }
                     ListBox1.Items.Add("Publishing on: control/auto");
                     ListBox1.Items.Add(">> Stopping the auto mode");
                     SetText1("");
                     button_auto.Text = "Start Auto mode";
-
-                    ASCIIEncoding encoder = new ASCIIEncoding();
-                    string s = "u,auto_stop";
-                    TCPclient.SendImmediate(encoder.GetBytes(s));
                     auto = false;
                 }
             }
@@ -512,12 +523,17 @@ namespace MQTTHandler
                 ListBox1.Items.Add("Sending chosen waypoints...");
                 while (k < waynum)
                 {
-                    client.Publish("control/auto", Encoding.UTF8.GetBytes(waylon[k] + "," + waylat[k]));
+                    if (Client.conn_TCP == true)
+                    {
+                        ASCIIEncoding encoder = new ASCIIEncoding();
+                        string s = "u,data,wp_choose," + waylon[k] + "," + waylat[k];
+                        TCPclient.SendImmediate(encoder.GetBytes(s));
+                    }
+                    else
+                    {
+                        client.Publish("control/auto", Encoding.UTF8.GetBytes(waylon[k] + "," + waylat[k]));
+                    }
                     SetText1(">> Waypoint" + k + ": Sent.");
-
-                    ASCIIEncoding encoder = new ASCIIEncoding();
-                    string s = "u,data,wp_choose," + waylon[k] + "," + waylat[k];
-                    TCPclient.SendImmediate(encoder.GetBytes(s));
                     k++;
                 }
                 SetText1("");
@@ -534,14 +550,19 @@ namespace MQTTHandler
             }
             else
             {
+                if (Client.conn_TCP == true)
+                {
+                    ASCIIEncoding encoder = new ASCIIEncoding();
+                    string s = "u,data,open";
+                    TCPclient.SendImmediate(encoder.GetBytes(s));
+                }
+                else
+                {
+                    client.Publish("control/auto", Encoding.UTF8.GetBytes("open"));
+                }
                 ListBox1.Items.Add("Delivery completed!");
                 SetText1(">> Opening the container...");
                 SetText1("");
-                client.Publish("control/auto", Encoding.UTF8.GetBytes("open"));
-
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                string s = "u,data,open";
-                TCPclient.SendImmediate(encoder.GetBytes(s));
             }
         }
 
@@ -567,13 +588,18 @@ namespace MQTTHandler
             }
             else
             {
+                if (Client.conn_TCP == true)
+                {
+                    ASCIIEncoding encoder = new ASCIIEncoding();
+                    string s = "u,data,request";
+                    TCPclient.SendImmediate(encoder.GetBytes(s));
+                }
+                else
+                {
+                    client.Publish("control/auto", Encoding.UTF8.GetBytes("request"));
+                }
                 ListBox1.Items.Add("Requesting current cart position...");
                 SetText1("");
-                client.Publish("control/auto", Encoding.UTF8.GetBytes("request"));
-
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                string s = "u,data,request";
-                TCPclient.SendImmediate(encoder.GetBytes(s));
                 request = true;
             }
         }
@@ -654,7 +680,7 @@ namespace MQTTHandler
         {
             for(int i = 1; i < waynum; i++)
             {
-                SetText1("Chosen waypoint " + i + ":");
+                SetText1("Currently chosen waypoint " + i + ":");
                 SetText1(">> Longitude: " + waylon[i]);
                 SetText1(">> Latitude: " + waylat[i]);
                 SetText1("");
@@ -677,10 +703,17 @@ namespace MQTTHandler
             }
             else
             {
+                if (Client.conn_TCP == true)
+                {
+                    ASCIIEncoding encoder = new ASCIIEncoding();
+                    string s = "u,raw," + rawtext.Text;
+                    TCPclient.SendImmediate(encoder.GetBytes(s));
+                }
+                else
+                {
+                    client.Publish("control/auto", Encoding.UTF8.GetBytes(rawtext.Text));
+                }
                 ListBox1.Items.Add("Message sent to server/cart: " + rawtext.Text);
-                ASCIIEncoding encoder = new ASCIIEncoding();
-                string s = "u,raw," + rawtext.Text;
-                TCPclient.SendImmediate(encoder.GetBytes(s));
             }
         }
 
