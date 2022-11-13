@@ -26,6 +26,8 @@ namespace MQTTHandler
     {
         delegate void SetTextCallback(string text);
 
+        string path = @"E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\data\testdata.txt";
+
         bool conn_MQTT = false;
         bool waystart = true;
         bool choose = false;
@@ -52,11 +54,12 @@ namespace MQTTHandler
         int waynum = 1;
         readonly MqttClient client = new MqttClient("broker.hivemq.com", 1883, false, null, null, MqttSslProtocols.None);
         readonly Client TCPclient = new Client();
+        TextWriter tw = new StreamWriter(@"E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\data\testdata.txt", true);
 
         public MainForm()
         {
             InitializeComponent();
-            TCPclient.OnDataReceived += new ClientHandlePacketData(client_OnDataReceived);
+            //TCPclient.OnDataReceived += new ClientHandlePacketData(client_OnDataReceived);
             client.MqttMsgPublishReceived += new MqttClient.MqttMsgPublishEventHandler(EventPublished);
             gmap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
@@ -276,6 +279,7 @@ namespace MQTTHandler
                     SetText5(Convert.ToString(angle) + " *");
                     if (arrive == 1)
                     {
+                        tw.WriteLine("REACHED WAYPOINT");
                         Updating();
                     }
                     if (wayarr == waynum)
@@ -286,6 +290,8 @@ namespace MQTTHandler
                         SetText1("");
                         auto = false;
                     }
+                    //File.WriteAllText(path, lat2.ToString() + "," + lon2.ToString() + Environment.NewLine);
+                    tw.WriteLine(lat2.ToString() + "," + lon2.ToString());
                     Tracking();
                 }
             }
@@ -345,6 +351,7 @@ namespace MQTTHandler
                 if (arrive == 1)
                 {
                     Updating();
+                    tw.WriteLine("REACHED WAYPOINT");
                 }
                 if (wayarr == waynum-1)
                 {
@@ -355,6 +362,8 @@ namespace MQTTHandler
                       SetText1("");
                     }));
                 }
+                //File.WriteAllText(path, lat2.ToString() + "," + lon2.ToString() + Environment.NewLine);
+                tw.WriteLine(lat2.ToString() + "," + lon2.ToString());
                 Tracking();
             }
         }
@@ -521,6 +530,9 @@ namespace MQTTHandler
             {
                 int k = 1;
                 ListBox1.Items.Add("Sending chosen waypoints...");
+                client.Publish("control/auto", Encoding.UTF8.GetBytes("StartWaypoint"));
+                //File.WriteAllText(path, "Waypoints" + Environment.NewLine);
+                tw.WriteLine("Waypoints");
                 while (k < waynum)
                 {
                     if (Client.conn_TCP == true)
@@ -531,11 +543,16 @@ namespace MQTTHandler
                     }
                     else
                     {
-                        client.Publish("control/auto", Encoding.UTF8.GetBytes(waylon[k] + "," + waylat[k]));
+                        client.Publish("control/auto", Encoding.UTF8.GetBytes(waylat[k] + "," + waylon[k]));
                     }
+                    //File.WriteAllText(path, waylat[k].ToString() + "," + waylon[k].ToString() + Environment.NewLine);
+                    tw.WriteLine(waylat[k].ToString() + "," + waylon[k].ToString());
                     SetText1(">> Waypoint" + k + ": Sent.");
                     k++;
                 }
+                client.Publish("control/auto", Encoding.UTF8.GetBytes("EndWaypoint"));
+                //File.WriteAllText(path, Environment.NewLine + "Positions" + Environment.NewLine);
+                tw.WriteLine(Environment.NewLine + "Positions");
                 SetText1("");
             }
         }
