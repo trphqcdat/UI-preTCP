@@ -26,7 +26,7 @@ namespace MQTTHandler
     {
         delegate void SetTextCallback(string text);
 
-        string path = @"E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\data\testdata.txt";
+        string path = @"E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\data\test2.txt";
 
         bool conn_MQTT = false;
         bool waystart = true;
@@ -54,7 +54,7 @@ namespace MQTTHandler
         int waynum = 1;
         readonly MqttClient client = new MqttClient("broker.hivemq.com", 1883, false, null, null, MqttSslProtocols.None);
         readonly Client TCPclient = new Client();
-        TextWriter tw = new StreamWriter(@"E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\data\testdata.txt", true);
+        TextWriter tw = new StreamWriter(@"E:\New folder\BK\HK221\Luan_van_tot_nghiep\Temporary\data\test2.txt", true);
 
         public MainForm()
         {
@@ -552,7 +552,7 @@ namespace MQTTHandler
                 }
                 client.Publish("control/auto", Encoding.UTF8.GetBytes("EndWaypoint"));
                 //File.WriteAllText(path, Environment.NewLine + "Positions" + Environment.NewLine);
-                tw.WriteLine(Environment.NewLine + "Positions");
+                tw.WriteLine("Positions");
                 SetText1("");
             }
         }
@@ -755,5 +755,9 @@ namespace MQTTHandler
 
         }
 
+        private void buttonCancelService_Click(object sender, EventArgs e)
+        {
+            client.Publish("control/service", Encoding.UTF8.GetBytes("k-service"));
+        }
     }
 }
