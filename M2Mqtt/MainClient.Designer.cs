@@ -62,6 +62,8 @@ namespace MQTTHandler
             this.ListBox6 = new System.Windows.Forms.ListBox();
             this.label11 = new System.Windows.Forms.Label();
             this.buttonCancelService = new System.Windows.Forms.Button();
+            this.btnPause = new System.Windows.Forms.Button();
+            this.btnGo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,7 +130,7 @@ namespace MQTTHandler
             // button_unlock
             // 
             this.button_unlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.button_unlock.Location = new System.Drawing.Point(11, 514);
+            this.button_unlock.Location = new System.Drawing.Point(12, 563);
             this.button_unlock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_unlock.Name = "button_unlock";
             this.button_unlock.Size = new System.Drawing.Size(167, 46);
@@ -140,7 +142,7 @@ namespace MQTTHandler
             // button_del
             // 
             this.button_del.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.button_del.Location = new System.Drawing.Point(179, 514);
+            this.button_del.Location = new System.Drawing.Point(180, 563);
             this.button_del.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_del.Name = "button_del";
             this.button_del.Size = new System.Drawing.Size(165, 46);
@@ -205,7 +207,7 @@ namespace MQTTHandler
             this.gmap.GrayScaleMode = false;
             this.gmap.LevelsKeepInMemmory = 5;
             this.gmap.Location = new System.Drawing.Point(371, 14);
-            this.gmap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gmap.Margin = new System.Windows.Forms.Padding(4);
             this.gmap.MarkersEnabled = true;
             this.gmap.MaxZoom = 20;
             this.gmap.MinZoom = 2;
@@ -364,7 +366,7 @@ namespace MQTTHandler
             // button_raw
             // 
             this.button_raw.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.button_raw.Location = new System.Drawing.Point(11, 615);
+            this.button_raw.Location = new System.Drawing.Point(12, 664);
             this.button_raw.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_raw.Name = "button_raw";
             this.button_raw.Size = new System.Drawing.Size(335, 46);
@@ -400,7 +402,7 @@ namespace MQTTHandler
             // rawtext
             // 
             this.rawtext.Font = new System.Drawing.Font("Courier New", 19F);
-            this.rawtext.Location = new System.Drawing.Point(12, 666);
+            this.rawtext.Location = new System.Drawing.Point(13, 715);
             this.rawtext.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.rawtext.Name = "rawtext";
             this.rawtext.Size = new System.Drawing.Size(331, 43);
@@ -409,7 +411,7 @@ namespace MQTTHandler
             // button_show
             // 
             this.button_show.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.button_show.Location = new System.Drawing.Point(11, 565);
+            this.button_show.Location = new System.Drawing.Point(12, 614);
             this.button_show.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_show.Name = "button_show";
             this.button_show.Size = new System.Drawing.Size(335, 46);
@@ -455,7 +457,7 @@ namespace MQTTHandler
             // buttonCancelService
             // 
             this.buttonCancelService.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.buttonCancelService.Location = new System.Drawing.Point(11, 469);
+            this.buttonCancelService.Location = new System.Drawing.Point(12, 518);
             this.buttonCancelService.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCancelService.Name = "buttonCancelService";
             this.buttonCancelService.Size = new System.Drawing.Size(335, 41);
@@ -464,12 +466,38 @@ namespace MQTTHandler
             this.buttonCancelService.UseVisualStyleBackColor = true;
             this.buttonCancelService.Click += new System.EventHandler(this.buttonCancelService_Click);
             // 
+            // btnPause
+            // 
+            this.btnPause.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.btnPause.Location = new System.Drawing.Point(10, 469);
+            this.btnPause.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnPause.Name = "btnPause";
+            this.btnPause.Size = new System.Drawing.Size(167, 46);
+            this.btnPause.TabIndex = 57;
+            this.btnPause.Text = "Pause";
+            this.btnPause.UseVisualStyleBackColor = true;
+            this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
+            // 
+            // btnGo
+            // 
+            this.btnGo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.btnGo.Location = new System.Drawing.Point(183, 469);
+            this.btnGo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.Size = new System.Drawing.Size(167, 46);
+            this.btnGo.TabIndex = 58;
+            this.btnGo.Text = "Continue";
+            this.btnGo.UseVisualStyleBackColor = true;
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1112, 727);
+            this.ClientSize = new System.Drawing.Size(1112, 764);
+            this.Controls.Add(this.btnGo);
+            this.Controls.Add(this.btnPause);
             this.Controls.Add(this.buttonCancelService);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.ListBox6);
@@ -550,5 +578,7 @@ namespace MQTTHandler
         private System.Windows.Forms.ListBox ListBox6;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonCancelService;
+        private System.Windows.Forms.Button btnPause;
+        private System.Windows.Forms.Button btnGo;
     }
 }
