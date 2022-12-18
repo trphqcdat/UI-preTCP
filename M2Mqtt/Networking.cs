@@ -40,7 +40,7 @@ namespace GraphicsToolkit.Networking
         private int readBufferSize = 1024;
         private int port;
         private bool started = false;
-        public static bool conn_TCP = false;
+        public static bool isTCPConnect = false;
 
         public class NetworkBuffer
         {
@@ -67,12 +67,12 @@ namespace GraphicsToolkit.Networking
                 Console.WriteLine("Connected to server, listening for packets");
                 Thread t = new Thread(new ThreadStart(ListenForPackets));
                 started = true;
-                conn_TCP = true;
+                isTCPConnect = true;
                 t.Start();
             }
             catch
             {
-                conn_TCP = false;
+                isTCPConnect = false;
             }
 
         }
@@ -143,7 +143,7 @@ namespace GraphicsToolkit.Networking
             Console.WriteLine("Disconnected from server");
             tcpClient.Close();
             started = false;
-            conn_TCP = false;
+            isTCPConnect = false;
         }
     }
 }

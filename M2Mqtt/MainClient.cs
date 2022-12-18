@@ -26,37 +26,39 @@ namespace MQTTHandler
     {
         delegate void SetTextCallback(string text);
 
-        bool conn_MQTT = false;
-        bool waystart = true;
-        bool choose = false;
-        bool auto = false;
-        bool request = false;
-        bool show = false;
+        bool isMQTTConnect = false;
+        bool isFirstWaypoint = true;
+        bool isChooseEnable = false;
+        bool isAutoEnable = false;
+        bool isOnRequest = false;
+        bool isShowMessageEnable = false;
+        bool isIconOnMap = false;
+        bool isReverseWaypoint = false;
 
-        string sender;
-        double lon1;
-        double lon2;
-        double lonreq;
-        double lat1;
-        double lat2;
-        double latreq;
+        string ClientSender;
+        double Cart_Longitude_1;
+        double Cart_Longitude_2;
+        double Cart_Longitude_onRequest;
+        double Cart_Latitude_1;
+        double Cart_Latitude_2;
+        double Cart_Latitude_onRequest;
 
-        int arrive = 0;
-        int wayarr = 0;
-        int waynext = 0;
-        double speed = 0;
-        double angle = 0;
+        int isCartArrive = 0;
+        int WaypointArrive = 0;
+        int WaypointUpcoming = 0;
+        double CartSpeed = 0;
+        double CartAngle = 0;
 
-        double[] waylon = new double[11];
-        double[] waylat = new double[11];
-        int waynum = 1;
+        double[] Waypoint_Longitude = new double[21];
+        double[] Waypoint_Latitude = new double[21];
+        int WaypointCount = 1;
         readonly MqttClient client = new MqttClient("broker.hivemq.com", 1883, false, null, null, MqttSslProtocols.None);
         readonly Client TCPclient = new Client();
 
         public MainForm()
         {
             InitializeComponent();
-            TCPclient.OnDataReceived += new ClientHandlePacketData(client_OnDataReceived);
+            //TCPclient.OnDataReceived += new ClientHandlePacketData(client_OnDataReceived);
             client.MqttMsgPublishReceived += new MqttClient.MqttMsgPublishEventHandler(EventPublished);
             gmap.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
@@ -152,21 +154,21 @@ namespace MQTTHandler
         {
             List<PointLatLng> trackpoints = new List<PointLatLng>();
             GMapOverlay trackroutes = new GMapOverlay(gmap, "trackroutes");
-            trackpoints.Add(new PointLatLng(lat1, lon1));
-            trackpoints.Add(new PointLatLng(lat2, lon2));
+            trackpoints.Add(new PointLatLng(Cart_Latitude_1, Cart_Longitude_1));
+            trackpoints.Add(new PointLatLng(Cart_Latitude_2, Cart_Longitude_2));
             GMapRoute route = new GMapRoute(trackpoints, "Tracking");
             route.Stroke = new Pen(Color.Red, 1);
             trackroutes.Routes.Add(route);
             gmap.Overlays.Add(trackroutes);
-            lat1 = lat2;
-            lon1 = lon2;
+            Cart_Latitude_1 = Cart_Latitude_2;
+            Cart_Longitude_1 = Cart_Longitude_2;
         }
 
         private void Marking()
         {
             GMapOverlay markers = new GMapOverlay(gmap, "markers");
-            GMapMarker marker = new GMapMarkerGoogleRed(new PointLatLng(waylat[waynum], waylon[waynum]));
-            marker.ToolTipText = "WP" + waynum;
+            GMapMarker marker = new GMapMarkerGoogleRed(new PointLatLng(Waypoint_Latitude[WaypointCount], Waypoint_Longitude[WaypointCount]));
+            marker.ToolTipText = "WP" + WaypointCount;
             marker.ToolTip.Fill = Brushes.Black;
             marker.ToolTip.Foreground = Brushes.White;
             marker.ToolTip.Stroke = Pens.Black;
@@ -178,17 +180,17 @@ namespace MQTTHandler
         private void Updating()
         {
             GMapOverlay markers = new GMapOverlay(gmap, "markers");
-            GMapMarker marker = new GMapMarkerGoogleGreen(new PointLatLng(waylat[wayarr], waylon[wayarr]));
+            GMapMarker marker = new GMapMarkerGoogleGreen(new PointLatLng(Waypoint_Latitude[WaypointArrive], Waypoint_Longitude[WaypointArrive]));
             markers.Markers.Add(marker);
             gmap.Overlays.Add(markers);
-            SetText2(Convert.ToString(wayarr));
-            if (waynext == 0)
+            SetText2(Convert.ToString(WaypointArrive));
+            if (WaypointUpcoming == 0)
             {
                 SetText3("Finish");
             }
             else
             {
-                SetText3(Convert.ToString(waynext));
+                SetText3(Convert.ToString(WaypointUpcoming));
             }
         }
 
@@ -196,12 +198,63 @@ namespace MQTTHandler
         {
             List<PointLatLng> drawpoints = new List<PointLatLng>();
             GMapOverlay drawroutes = new GMapOverlay(gmap, "drawroutes");
-            drawpoints.Add(new PointLatLng(waylat[waynum - 2], waylon[waynum - 2]));
-            drawpoints.Add(new PointLatLng(waylat[waynum - 1], waylon[waynum - 1]));
+            drawpoints.Add(new PointLatLng(Waypoint_Latitude[WaypointCount - 2], Waypoint_Longitude[WaypointCount - 2]));
+            drawpoints.Add(new PointLatLng(Waypoint_Latitude[WaypointCount - 1], Waypoint_Longitude[WaypointCount - 1]));
             GMapRoute route = new GMapRoute(drawpoints, "Drawing");
             route.Stroke = new Pen(Color.Green, 1);
             drawroutes.Routes.Add(route);
             gmap.Overlays.Add(drawroutes);
+        }
+        
+        private void Remapping()
+        {
+            int i = 2;
+            int k = 1;
+            while(i < WaypointCount)
+            {
+                List<PointLatLng> redrawpoints = new List<PointLatLng>();
+                GMapOverlay redrawroutes = new GMapOverlay(gmap, "redrawroutes");
+                redrawpoints.Add(new PointLatLng(Waypoint_Latitude[i - 1], Waypoint_Longitude[i - 1]));
+                redrawpoints.Add(new PointLatLng(Waypoint_Latitude[i - 0], Waypoint_Longitude[i - 0]));
+                GMapRoute route = new GMapRoute(redrawpoints, "Drawing");
+                route.Stroke = new Pen(Color.Green, 1);
+                redrawroutes.Routes.Add(route);
+                gmap.Overlays.Add(redrawroutes);
+                i++;
+            }
+            while(k < WaypointCount + 1)
+            {
+                GMapOverlay remarkers = new GMapOverlay(gmap, "remarkers");
+                GMapMarker remarker = new GMapMarkerGoogleRed(new PointLatLng(Waypoint_Latitude[k - 1], Waypoint_Longitude[k - 1]));
+                remarker.ToolTipText = "WP" + Convert.ToString(k - 1);
+                remarker.ToolTip.Fill = Brushes.Black;
+                remarker.ToolTip.Foreground = Brushes.White;
+                remarker.ToolTip.Stroke = Pens.Black;
+                remarker.ToolTip.TextPadding = new Size(5, 5);
+                remarkers.Markers.Add(remarker);
+                gmap.Overlays.Add(remarkers);
+                k++;
+            }
+        }
+
+        private void IconUpdate(int i)
+        {
+            GMapOverlay icons = new GMapOverlay(gmap, "icons");
+            GMapMarker icon = new GMapMarkerCross(new PointLatLng(Cart_Latitude_2, Cart_Longitude_2));
+            if (isIconOnMap)
+            {
+                //icons.Markers.Remove(icon);
+                //gmap.Overlays.Add(icons);
+                gmap.Overlays.RemoveAt(gmap.Overlays.Count - i);
+                isIconOnMap = false;
+            }
+            if (!isIconOnMap)
+            {
+                icons.Markers.Add(icon);
+                gmap.Overlays.Add(icons);
+                isIconOnMap = true;
+                return;
+            }
         }
 
         private void Deleting()
@@ -226,155 +279,149 @@ namespace MQTTHandler
             {
             }
         }
-
+        
         private void EventPublished(Object sender, uPLibrary.Networking.M2Mqtt.Messages.MqttMsgPublishEventArgs e)
         {
-            try
+            isChooseEnable = false;
+            //button_choose.Text = "Choose Waypoint Mode";
+            string payload = System.Text.UTF8Encoding.UTF8.GetString(e.Message);
+            char[] charSeparators = new char[] { ',' };
+            string[] message = payload.Split(charSeparators, StringSplitOptions.None);
+            ClientSender = Convert.ToString(message[0]);
+            if (ClientSender != "c") return;
+            if (isOnRequest == true)
             {
-                string payload = System.Text.UTF8Encoding.UTF8.GetString(e.Message);
-                char[] charSeparators = new char[] { ',' };
-                string[] message = payload.Split(charSeparators, StringSplitOptions.None);
-                if (request == true)
-                {
-                    lonreq = Convert.ToDouble(message[0]);
-                    latreq = Convert.ToDouble(message[1]);
-                    SetText1("Received current cart position:");
-                    SetText1("Longitude: " + lonreq + ", Latitude: " + latreq);
-                    SetText1(">> Press 'Set as Waypoint' to set this as a waypoint");
-                    SetText1("");
-                    request = false;
-                }
-                if (waystart == true)
-                {
-                    lon1 = Convert.ToDouble(message[0]);
-                    lat1 = Convert.ToDouble(message[1]);
-                    arrive = Convert.ToInt16(message[2]);
-                    wayarr = Convert.ToInt16(message[3]);
-                    waynext = Convert.ToInt16(message[4]);
-                    speed = Convert.ToDouble(message[5]);
-                    angle = Convert.ToDouble(message[6]);
-                    SetText1("Received - topic: " + e.Topic + ". Current position:");
-                    SetText1("Longitude: " + lon1 + ", Latitude: " + lat1);
-                    SetText1("");
-                    SetText4(Convert.ToString(speed) + " m/s");
-                    SetText5(Convert.ToString(angle) + " *");
-                    waystart = false;
-                }
-                else
-                {
-                    lon2 = Convert.ToDouble(message[0]);
-                    lat2 = Convert.ToDouble(message[1]);
-                    arrive = Convert.ToInt16(message[2]);
-                    wayarr = Convert.ToInt16(message[3]);
-                    waynext = Convert.ToInt16(message[4]);
-                    speed = Convert.ToDouble(message[5]);
-                    angle = Convert.ToDouble(message[6]);
-                    SetText1("Received - topic: " + e.Topic + ". Current position:");
-                    SetText1("Longitude: " + lon2 + ", Latitude: " + lat2);
-                    SetText1("");
-                    SetText4(Convert.ToString(speed) + " m/s");
-                    SetText5(Convert.ToString(angle) + " *");
-                    if (arrive == 1)
-                    {
-                        Updating();
-                    }
-                    if (wayarr == waynum)
-                    {
-                        client.Publish("control/auto", Encoding.UTF8.GetBytes("stop"));
-                        ListBox1.Items.Add("Vehicle arrived to the final waypoint.");
-                        ListBox1.Items.Add(">> Stopping the auto mode");
-                        SetText1("");
-                        auto = false;
-                    }
-                    Tracking();
-                }
+                Cart_Longitude_onRequest = Convert.ToDouble(message[1]);
+                Cart_Latitude_onRequest = Convert.ToDouble(message[2]);
+                SetText1("Received current cart position:");
+                SetText1("Longitude: " + Cart_Longitude_onRequest + ", Latitude: " + Cart_Latitude_onRequest);
+                SetText1(">> Press 'Set as Waypoint' to set this as a waypoint");
+                SetText1("");
+                isOnRequest = false;
             }
-            catch (InvalidCastException ex)
+            if (isFirstWaypoint == true)
             {
+                Cart_Longitude_1 = Convert.ToDouble(message[1]);
+                Cart_Latitude_1 = Convert.ToDouble(message[2]);
+                isCartArrive = Convert.ToInt16(message[3]);
+                WaypointArrive = Convert.ToInt16(message[4]);
+                WaypointUpcoming = Convert.ToInt16(message[5]);
+                CartSpeed = Convert.ToDouble(message[6]);  
+                CartAngle = Convert.ToDouble(message[7]);
+                SetText1("Received - topic: " + e.Topic + ". Current position:");
+                SetText1("Longitude: " + Cart_Longitude_1 + ", Latitude: " + Cart_Latitude_1);
+                SetText1("");
+                SetText4(Convert.ToString(CartSpeed) + " m/s");
+                SetText5(Convert.ToString(CartAngle) + " *");
+                isFirstWaypoint = false;
+                return;
+        }
+            else
+            {
+                Cart_Longitude_2 = Convert.ToDouble(message[1]);
+                Cart_Latitude_2 = Convert.ToDouble(message[2]);
+                isCartArrive = Convert.ToInt16(message[3]);
+                WaypointArrive = Convert.ToInt16(message[4]);
+                WaypointUpcoming = Convert.ToInt16(message[5]);
+                CartSpeed = Convert.ToDouble(message[6]);
+                CartAngle = Convert.ToDouble(message[7]);
+                SetText1("Received - topic: " + e.Topic + ". Current position:");
+                SetText1("Longitude: " + Cart_Longitude_2 + ", Latitude: " + Cart_Latitude_2);
+                SetText1("");
+                SetText4(Convert.ToString(CartSpeed) + " m/s");
+                SetText5(Convert.ToString(CartAngle) + " *");
+                if (isCartArrive == 1)
+                {
+                    Updating();
+                    IconUpdate(2);
+                }
+                if (WaypointArrive == WaypointCount)
+                {
+                    client.Publish("control/auto", Encoding.UTF8.GetBytes("stop"));
+                    SetText1("Vehicle arrived to the final waypoint.");
+                    SetText1(">> Stopping the auto mode");
+                    SetText1("");
+                    isAutoEnable = false;
+                }
+                Tracking();
+                IconUpdate(2);
             }
         }
        
         private void client_OnDataReceived(byte[] data, int bytesRead)
         {
+            isChooseEnable = false;
             ASCIIEncoding encoder = new ASCIIEncoding();
             string payload = encoder.GetString(data, 0, bytesRead);
             char[] charSeparators = new char[] { ',' };
             string[] message = payload.Split(charSeparators, StringSplitOptions.None);
-            sender = Convert.ToString(message[0]);
-            if (sender != "c") return;
-            if (request == true)
+            ClientSender = Convert.ToString(message[0]);
+            if (ClientSender != "c") return;
+            if (isOnRequest == true)
             {
-                lonreq = Convert.ToDouble(message[1]);
-                latreq = Convert.ToDouble(message[2]);
+                Cart_Longitude_onRequest = Convert.ToDouble(message[1]);
+                Cart_Latitude_onRequest = Convert.ToDouble(message[2]);
                 SetText1("Received current cart position:");
-                SetText1("Longitude: " + lonreq + ", Latitude: " + latreq);
+                SetText1("Longitude: " + Cart_Longitude_onRequest + ", Latitude: " + Cart_Latitude_onRequest);
                 SetText1(">> Press 'Set as Waypoint' to set this as a waypoint");
                 SetText1("");
-                request = false;
+                isOnRequest = false;
             }
-            if (waystart == true)
+            if (isFirstWaypoint == true)
             {
-                lon1 = Convert.ToDouble(message[1]);
-                lat1 = Convert.ToDouble(message[2]);
-                arrive = Convert.ToInt16(message[3]);
-                wayarr = Convert.ToInt16(message[4]);
-                waynext = Convert.ToInt16(message[5]);
-                speed = Convert.ToDouble(message[6]);
-                angle = Convert.ToDouble(message[7]);
-                SetText1("Current position:");
-                SetText1("Longitude: " + lon1 + ", Latitude: " + lat1);
-                SetText1("");
-                SetText4(Convert.ToString(speed) + " m/s");
-                SetText5(Convert.ToString(angle) + " *");
-                waystart = false;
+                Cart_Longitude_1 = Convert.ToDouble(message[1]);
+                Cart_Latitude_1 = Convert.ToDouble(message[2]);
+                isCartArrive = Convert.ToInt16(message[3]);
+                WaypointArrive = Convert.ToInt16(message[4]);
+                WaypointUpcoming = Convert.ToInt16(message[5]);
+                CartSpeed = Convert.ToDouble(message[6]);
+                CartAngle = Convert.ToDouble(message[7]);
+                isFirstWaypoint = false;
+                return;
             }
             else
             {
-                lon2 = Convert.ToDouble(message[1]);
-                lat2 = Convert.ToDouble(message[2]);
-                arrive = Convert.ToInt16(message[3]);
-                wayarr = Convert.ToInt16(message[4]);
-                waynext = Convert.ToInt16(message[5]);
-                speed = Convert.ToDouble(message[6]);
-                angle = Convert.ToDouble(message[7]);
-                SetText1("Current position:");
-                SetText1("Longitude: " + lon2 + ", Latitude: " + lat2);
-                SetText1("");
-                SetText4(Convert.ToString(speed) + " m/s");
-                SetText5(Convert.ToString(angle) + " *");
-                if (arrive == 1)
+                Cart_Longitude_2 = Convert.ToDouble(message[1]);
+                Cart_Latitude_2 = Convert.ToDouble(message[2]);
+                isCartArrive = Convert.ToInt16(message[3]);
+                WaypointArrive = Convert.ToInt16(message[4]);
+                WaypointUpcoming = Convert.ToInt16(message[5]);
+                CartSpeed = Convert.ToDouble(message[6]);
+                CartAngle = Convert.ToDouble(message[7]);
+                if (isCartArrive == 1)
                 {
                     Updating();
+                    IconUpdate(2);
                 }
-                if (wayarr == waynum-1)
+                if (WaypointArrive == WaypointCount)
                 {
                     client.Publish("control/auto", Encoding.UTF8.GetBytes("stop"));
-                    this.Invoke(new MethodInvoker(delegate () 
-                    { ListBox1.Items.Add("Vehicle arrived to the final waypoint.");
-                      ListBox1.Items.Add(">> Stopping the auto mode");
-                      SetText1("");
-                    }));
+                    SetText1("Vehicle arrived to the final waypoint.");
+                    SetText1(">> Stopping the auto mode");
+                    SetText1("");
+                    isAutoEnable = false;
                 }
                 Tracking();
+                IconUpdate(2);
             }
         }
 
         private void gmap_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left && choose == true)
+            if (e.Button == MouseButtons.Left && isChooseEnable == true)
             {
-                if (waynum <= 10)
+                if (WaypointCount <= 10)
                 {
                     var point = gmap.FromLocalToLatLng(e.X, e.Y);
-                    waylat[waynum] = point.Lat;
-                    waylon[waynum] = point.Lng;
-                    SetText1("Chosen waypoint " + waynum + ":");
-                    SetText1(">> Longitude: " + waylon[waynum]);
-                    SetText1(">> Latitude: " + waylat[waynum]);
+                    Waypoint_Latitude[WaypointCount] = point.Lat;
+                    Waypoint_Longitude[WaypointCount] = point.Lng;
+                    SetText1("Chosen waypoint " + WaypointCount + ":");
+                    SetText1(">> Longitude: " + Waypoint_Longitude[WaypointCount]);
+                    SetText1(">> Latitude: " + Waypoint_Latitude[WaypointCount]);
                     SetText1("");
                     Marking();
-                    waynum++;
-                    if (waynum >= 3)
+                    WaypointCount++;
+                    if (WaypointCount >= 3)
                     {
                         Drawing();
                     }
@@ -390,11 +437,11 @@ namespace MQTTHandler
 
         private void button_conn_Click(object sender, EventArgs e)
         {
-            if (Client.conn_TCP == false && conn_MQTT == false)
+            if (Client.isTCPConnect == false && isMQTTConnect == false)
             {
                 TCPclient.OnDataReceived += new ClientHandlePacketData(client_OnDataReceived);
                 TCPclient.ConnectToServer("139.162.36.251", 5050);
-                if (Client.conn_TCP == true)
+                if (Client.isTCPConnect == true)
                 {
                     ListBox1.Items.Add("Client connected to TCP server.");
                     button_conn.Text = "Disconnect from TCP server";
@@ -414,10 +461,10 @@ namespace MQTTHandler
                     ListBox1.Items.Add(">> Publishing to: control/auto & control/manual");
                     SetText1("");
                     SetText6("MQTT");
-                    conn_MQTT = true;
+                    isMQTTConnect = true;
                 }
             }
-            else if (Client.conn_TCP == true)
+            else if (Client.isTCPConnect == true)
             {
                 ListBox1.Items.Add("Client disconnected from TCP server.");
                 SetText1("");
@@ -427,10 +474,10 @@ namespace MQTTHandler
                 button_conn.Text = "Connect to server";
                 SetText6(" ");
             }
-            else if (conn_MQTT == true)
+            else if (isMQTTConnect == true)
             {
                 client.Disconnect();
-                conn_MQTT = false;
+                isMQTTConnect = false;
                 ListBox1.Items.Add("Client disconnected from MQTT server.");
                 SetText1("");
                 button_conn.Text = "Connect to server";
@@ -440,7 +487,7 @@ namespace MQTTHandler
 
         private void button_auto_Click(object sender, EventArgs e)
         {
-            if (Client.conn_TCP == false && conn_MQTT == false)
+            if (Client.isTCPConnect == false && isMQTTConnect == false)
             {
                 ListBox1.Items.Add("UI client is currently offline.");
                 SetText1(">> Press 'Connect to server' to establish communication.");
@@ -448,9 +495,9 @@ namespace MQTTHandler
             }
             else
             {
-                if (auto == false)
+                if (isAutoEnable == false)
                 {
-                    if (Client.conn_TCP == true)
+                    if (Client.isTCPConnect == true)
                     {
                         ASCIIEncoding encoder = new ASCIIEncoding();
                         string s = "u,data,auto_start";
@@ -466,11 +513,11 @@ namespace MQTTHandler
                     ListBox1.Items.Add(">> Starting the auto mode");
                     SetText1("");
                     button_auto.Text = "Stop Auto mode";
-                    auto = true;
+                    isAutoEnable = true;
                 }
                 else
                 {
-                    if (Client.conn_TCP == true)
+                    if (Client.isTCPConnect == true)
                     {
                         ASCIIEncoding encoder = new ASCIIEncoding();
                         string s = "u,auto_stop";
@@ -484,20 +531,20 @@ namespace MQTTHandler
                     ListBox1.Items.Add(">> Stopping the auto mode");
                     SetText1("");
                     button_auto.Text = "Start Auto mode";
-                    auto = false;
+                    isAutoEnable = false;
                 }
             }
         }
 
         private void button_choose_Click(object sender, EventArgs e)
         {
-            if (choose == false)
+            if (isChooseEnable == false)
             {
                 ListBox1.Items.Add("Start choosing waypoints...");
                 ListBox1.Items.Add(">> Left-click on the map to choose, drag right-click to move around.");
                 SetText1("");
                 button_choose.Text = "Disable Choosing Waypoint";
-                choose = true;
+                isChooseEnable = true;
             }
             else
             {
@@ -505,13 +552,13 @@ namespace MQTTHandler
                 ListBox1.Items.Add(">> Left-click on the map to interact, drag right-click to move around.");
                 SetText1("");
                 button_choose.Text = "Choose Waypoint Mode";
-                choose = false;
+                isChooseEnable = false;
             }
         }
 
         private void button_send_Click(object sender, EventArgs e)
         {
-            if (Client.conn_TCP == false && conn_MQTT == false)
+            if (Client.isTCPConnect == false && isMQTTConnect == false)
             {
                 ListBox1.Items.Add("UI client is currently offline.");
                 SetText1(">> Press 'Connect to server' to establish communication.");
@@ -521,17 +568,17 @@ namespace MQTTHandler
             {
                 int k = 1;
                 ListBox1.Items.Add("Sending chosen waypoints...");
-                while (k < waynum)
+                while (k < WaypointCount)
                 {
-                    if (Client.conn_TCP == true)
+                    if (Client.isTCPConnect == true)
                     {
                         ASCIIEncoding encoder = new ASCIIEncoding();
-                        string s = "u,data,wp_choose," + waylon[k] + "," + waylat[k];
+                        string s = "u,data,wp_choose," + Waypoint_Longitude[k] + "," + Waypoint_Latitude[k];
                         TCPclient.SendImmediate(encoder.GetBytes(s));
                     }
                     else
                     {
-                        client.Publish("control/auto", Encoding.UTF8.GetBytes(waylon[k] + "," + waylat[k]));
+                        client.Publish("control/auto", Encoding.UTF8.GetBytes(Waypoint_Longitude[k] + "," + Waypoint_Latitude[k]));
                     }
                     SetText1(">> Waypoint" + k + ": Sent.");
                     k++;
@@ -542,7 +589,7 @@ namespace MQTTHandler
 
         private void button_unlock_Click(object sender, EventArgs e)
         {
-            if (Client.conn_TCP == false && conn_MQTT == false)
+            if (Client.isTCPConnect == false && isMQTTConnect == false)
             {
                 ListBox1.Items.Add("UI client is currently offline.");
                 SetText1(">> Press 'Connect to server' to establish communication.");
@@ -550,7 +597,7 @@ namespace MQTTHandler
             }
             else
             {
-                if (Client.conn_TCP == true)
+                if (Client.isTCPConnect == true)
                 {
                     ASCIIEncoding encoder = new ASCIIEncoding();
                     string s = "u,data,open";
@@ -571,16 +618,17 @@ namespace MQTTHandler
             ListBox1.Items.Add("Deleting selected waypoints & tracked route...");
             SetText1(">> Press 'Choose Waypoint Mode' to create new route");
             SetText1("");
-            waylon = new double[11];
-            waylat = new double[11];
-            waynum = 1;
-            waystart = true;
+            Waypoint_Longitude = new double[11];
+            Waypoint_Latitude = new double[11];
+            WaypointCount = 1;
+            isFirstWaypoint = true;
+            isIconOnMap = false;
             Deleting();
         }
 
         private void button_req_Click(object sender, EventArgs e)
         {
-            if (Client.conn_TCP == false && conn_MQTT == false)
+            if (Client.isTCPConnect == false && isMQTTConnect == false)
             {
                 ListBox1.Items.Add("UI client is currently offline.");
                 SetText1(">> Press 'Connect to server' to establish communication.");
@@ -588,7 +636,7 @@ namespace MQTTHandler
             }
             else
             {
-                if (Client.conn_TCP == true)
+                if (Client.isTCPConnect == true)
                 {
                     ASCIIEncoding encoder = new ASCIIEncoding();
                     string s = "u,data,request";
@@ -600,7 +648,7 @@ namespace MQTTHandler
                 }
                 ListBox1.Items.Add("Requesting current cart position...");
                 SetText1("");
-                request = true;
+                isOnRequest = true;
             }
         }
 
@@ -608,19 +656,19 @@ namespace MQTTHandler
         {
             ListBox1.Items.Add("Setting requested position as a waypoint...");
             SetText1("");
-            if (choose == true)
+            if (isChooseEnable == true)
             {
-                if (waynum <= 10)
+                if (WaypointCount <= 10)
                 {
-                    waylat[waynum] = latreq;
-                    waylon[waynum] = lonreq;
-                    SetText1("Chosen waypoint " + waynum + ":");
-                    SetText1(">> Longitude: " + waylon[waynum]);
-                    SetText1(">> Latitude: " + waylat[waynum]);
+                    Waypoint_Latitude[WaypointCount] = Cart_Latitude_onRequest;
+                    Waypoint_Longitude[WaypointCount] = Cart_Longitude_onRequest;
+                    SetText1("Chosen waypoint " + WaypointCount + ":");
+                    SetText1(">> Longitude: " + Waypoint_Longitude[WaypointCount]);
+                    SetText1(">> Latitude: " + Waypoint_Latitude[WaypointCount]);
                     SetText1("");
                     Marking();
-                    waynum++;
-                    if (waynum >= 3)
+                    WaypointCount++;
+                    if (WaypointCount >= 3)
                     {
                         Drawing();
                     }
@@ -644,19 +692,19 @@ namespace MQTTHandler
         {
             ListBox1.Items.Add("Create a waypoint loop from the recent chosen waypoint...");
             SetText1("");
-            if (choose == true)
+            if (isChooseEnable == true)
             {
-                if (waynum <= 10 && waynum > 2)
+                if (WaypointCount <= 10 && WaypointCount > 2)
                 {
-                    waylat[waynum] = waylat[1];
-                    waylon[waynum] = waylon[1];
-                    SetText1("Chosen waypoint " + waynum + ":");
-                    SetText1(">> Longitude: " + waylon[waynum]);
-                    SetText1(">> Latitude: " + waylat[waynum]);
+                    Waypoint_Latitude[WaypointCount] = Waypoint_Latitude[1];
+                    Waypoint_Longitude[WaypointCount] = Waypoint_Longitude[1];
+                    SetText1("Chosen waypoint " + WaypointCount + ":");
+                    SetText1(">> Longitude: " + Waypoint_Longitude[WaypointCount]);
+                    SetText1(">> Latitude: " + Waypoint_Latitude[WaypointCount]);
                     SetText1("");
                     Marking();
-                    waynum++;
-                    if (waynum >= 3)
+                    WaypointCount++;
+                    if (WaypointCount >= 3)
                     {
                         Drawing();
                     }
@@ -678,18 +726,18 @@ namespace MQTTHandler
 
         private void button_data_Click(object sender, EventArgs e)
         {
-            for(int i = 1; i < waynum; i++)
+            for(int i = 1; i < WaypointCount; i++)
             {
                 SetText1("Currently chosen waypoint " + i + ":");
-                SetText1(">> Longitude: " + waylon[i]);
-                SetText1(">> Latitude: " + waylat[i]);
+                SetText1(">> Longitude: " + Waypoint_Longitude[i]);
+                SetText1(">> Latitude: " + Waypoint_Latitude[i]);
                 SetText1("");
             }
         }
 
         private void button_raw_Click(object sender, EventArgs e)
         {
-            if (Client.conn_TCP == false && conn_MQTT == false)
+            if (Client.isTCPConnect == false && isMQTTConnect == false)
             {
                 ListBox1.Items.Add("UI client is currently offline.");
                 SetText1(">> Press 'Connect to server' to establish communication.");
@@ -703,7 +751,7 @@ namespace MQTTHandler
             }
             else
             {
-                if (Client.conn_TCP == true)
+                if (Client.isTCPConnect == true)
                 {
                     ASCIIEncoding encoder = new ASCIIEncoding();
                     string s = "u,raw," + rawtext.Text;
@@ -719,13 +767,13 @@ namespace MQTTHandler
 
         private void button_show_Click(object sender, EventArgs e)
         {
-            if (show == false)
+            if (isShowMessageEnable == false)
             {
                 ListBox1.Items.Add("Show receiving messages on Activities Status");
                 ListBox1.Items.Add(">> Press 'Hide Messages Received' to disable this.");
                 SetText1("");
                 button_show.Text = "Hide Messages Received";
-                show = true;
+                isShowMessageEnable = true;
             }
             else
             {
@@ -733,10 +781,33 @@ namespace MQTTHandler
                 ListBox1.Items.Add(">> Press 'Show Messages Received' to enable messages log.");
                 SetText1("");
                 button_show.Text = "Show Messages Received";
-                show = false;
+                isShowMessageEnable = false;
             }
 
         }
 
+        private void button_reverse_Click(object sender, EventArgs e)
+        {
+            if (!isReverseWaypoint)
+            {
+                int start = 0;
+                int end = WaypointCount;
+                while (start < end)
+                {
+                    double lontemp = Waypoint_Longitude[start];
+                    Waypoint_Longitude[start] = Waypoint_Longitude[end];
+                    Waypoint_Longitude[end] = lontemp;
+                    double lattemp = Waypoint_Latitude[start];
+                    Waypoint_Latitude[start] = Waypoint_Latitude[end];
+                    Waypoint_Latitude[end] = lattemp;
+                    start++;
+                    end--;
+                    isReverseWaypoint = true;
+                }
+                isReverseWaypoint = false;
+                Deleting();
+                Remapping();
+            }
+        }
     }
 }
