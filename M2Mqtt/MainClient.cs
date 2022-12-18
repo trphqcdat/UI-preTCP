@@ -568,6 +568,7 @@ namespace MQTTHandler
             {
                 int k = 1;
                 ListBox1.Items.Add("Sending chosen waypoints...");
+                client.Publish("control/auto", Encoding.UTF8.GetBytes("StartWaypoint"));
                 while (k < WaypointCount)
                 {
                     if (Client.isTCPConnect == true)
@@ -578,11 +579,12 @@ namespace MQTTHandler
                     }
                     else
                     {
-                        client.Publish("control/auto", Encoding.UTF8.GetBytes(Waypoint_Longitude[k] + "," + Waypoint_Latitude[k]));
+                        client.Publish("control/auto", Encoding.UTF8.GetBytes(Waypoint_Latitude[k] + "," + Waypoint_Longitude[k]));
                     }
                     SetText1(">> Waypoint" + k + ": Sent.");
                     k++;
                 }
+                client.Publish("control/auto", Encoding.UTF8.GetBytes("EndWaypoint"));
                 SetText1("");
             }
         }
@@ -644,7 +646,7 @@ namespace MQTTHandler
                 }
                 else
                 {
-                    client.Publish("control/auto", Encoding.UTF8.GetBytes("request"));
+                    client.Publish("control/auto", Encoding.UTF8.GetBytes("Request"));
                 }
                 ListBox1.Items.Add("Requesting current cart position...");
                 SetText1("");
