@@ -355,8 +355,8 @@ namespace MQTTHandler
             string payload = encoder.GetString(data, 0, bytesRead);
             char[] charSeparators = new char[] { ',' };
             string[] message = payload.Split(charSeparators, StringSplitOptions.None);
-            ClientSender = Convert.ToString(message[0]);
-            if (ClientSender != "c") return;
+            //ClientSender = Convert.ToString(message[0]);
+            //if (ClientSender != "c") return;
             if (isOnRequest == true)
             {
                 Cart_Longitude_onRequest = Convert.ToDouble(message[1]);

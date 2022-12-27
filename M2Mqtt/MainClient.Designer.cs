@@ -67,7 +67,7 @@ namespace MQTTHandler
             // 
             // button_conn
             // 
-            this.button_conn.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_conn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_conn.Location = new System.Drawing.Point(12, 197);
             this.button_conn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_conn.Name = "button_conn";
@@ -79,7 +79,7 @@ namespace MQTTHandler
             // 
             // button_send
             // 
-            this.button_send.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_send.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_send.Location = new System.Drawing.Point(11, 449);
             this.button_send.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_send.Name = "button_send";
@@ -94,29 +94,28 @@ namespace MQTTHandler
             this.ListBox1.AllowDrop = true;
             this.ListBox1.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ListBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListBox1.Font = new System.Drawing.Font("Montserrat", 6F);
+            this.ListBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
             this.ListBox1.FormattingEnabled = true;
             this.ListBox1.HorizontalScrollbar = true;
-            this.ListBox1.ItemHeight = 14;
-            this.ListBox1.Location = new System.Drawing.Point(683, 518);
+            this.ListBox1.Location = new System.Drawing.Point(371, 509);
             this.ListBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ListBox1.Name = "ListBox1";
-            this.ListBox1.Size = new System.Drawing.Size(417, 170);
+            this.ListBox1.Size = new System.Drawing.Size(728, 184);
             this.ListBox1.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Montserrat", 12F);
-            this.label5.Location = new System.Drawing.Point(912, 487);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label5.Location = new System.Drawing.Point(366, 482);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(169, 27);
+            this.label5.Size = new System.Drawing.Size(150, 25);
             this.label5.TabIndex = 12;
             this.label5.Text = "Activities Status";
             // 
             // button_choose
             // 
-            this.button_choose.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_choose.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_choose.Location = new System.Drawing.Point(11, 298);
             this.button_choose.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_choose.Name = "button_choose";
@@ -128,7 +127,7 @@ namespace MQTTHandler
             // 
             // button_unlock
             // 
-            this.button_unlock.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_unlock.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_unlock.Location = new System.Drawing.Point(11, 500);
             this.button_unlock.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_unlock.Name = "button_unlock";
@@ -140,7 +139,7 @@ namespace MQTTHandler
             // 
             // button_del
             // 
-            this.button_del.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_del.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_del.Location = new System.Drawing.Point(179, 500);
             this.button_del.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_del.Name = "button_del";
@@ -152,7 +151,7 @@ namespace MQTTHandler
             // 
             // button_auto
             // 
-            this.button_auto.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_auto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_auto.Location = new System.Drawing.Point(11, 247);
             this.button_auto.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_auto.Name = "button_auto";
@@ -167,11 +166,11 @@ namespace MQTTHandler
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.Control;
             this.label2.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label2.Font = new System.Drawing.Font("Montserrat", 10F, System.Drawing.FontStyle.Bold);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label2.Location = new System.Drawing.Point(28, 5);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(290, 24);
+            this.label2.Size = new System.Drawing.Size(277, 20);
             this.label2.TabIndex = 29;
             this.label2.Text = "HCMC University of Technology";
             // 
@@ -180,11 +179,11 @@ namespace MQTTHandler
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.Control;
             this.label3.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label3.Font = new System.Drawing.Font("Montserrat", 10F, System.Drawing.FontStyle.Bold);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.DodgerBlue;
             this.label3.Location = new System.Drawing.Point(89, 30);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(171, 24);
+            this.label3.Size = new System.Drawing.Size(163, 20);
             this.label3.TabIndex = 30;
             this.label3.Text = "Graduation Thesis";
             // 
@@ -206,7 +205,7 @@ namespace MQTTHandler
             this.gmap.GrayScaleMode = false;
             this.gmap.LevelsKeepInMemmory = 5;
             this.gmap.Location = new System.Drawing.Point(371, 14);
-            this.gmap.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.gmap.Margin = new System.Windows.Forms.Padding(4);
             this.gmap.MarkersEnabled = true;
             this.gmap.MaxZoom = 20;
             this.gmap.MinZoom = 2;
@@ -225,10 +224,10 @@ namespace MQTTHandler
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Montserrat", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(143, 167);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(192, 27);
+            this.label1.Size = new System.Drawing.Size(162, 25);
             this.label1.TabIndex = 33;
             this.label1.Text = "Controlling Board";
             // 
@@ -237,32 +236,32 @@ namespace MQTTHandler
             this.ListBox2.AllowDrop = true;
             this.ListBox2.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ListBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListBox2.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.ListBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ListBox2.FormattingEnabled = true;
-            this.ListBox2.ItemHeight = 18;
+            this.ListBox2.ItemHeight = 16;
             this.ListBox2.Location = new System.Drawing.Point(571, 575);
             this.ListBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ListBox2.Name = "ListBox2";
-            this.ListBox2.Size = new System.Drawing.Size(86, 20);
+            this.ListBox2.Size = new System.Drawing.Size(86, 18);
             this.ListBox2.TabIndex = 34;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label4.Location = new System.Drawing.Point(421, 575);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(140, 20);
+            this.label4.Size = new System.Drawing.Size(127, 17);
             this.label4.TabIndex = 35;
             this.label4.Text = "Waypoint reached:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label6.Location = new System.Drawing.Point(403, 604);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(156, 20);
+            this.label6.Size = new System.Drawing.Size(134, 17);
             this.label6.TabIndex = 36;
             this.label6.Text = "Upcoming waypoint:";
             // 
@@ -271,22 +270,22 @@ namespace MQTTHandler
             this.ListBox3.AllowDrop = true;
             this.ListBox3.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ListBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListBox3.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.ListBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ListBox3.FormattingEnabled = true;
-            this.ListBox3.ItemHeight = 18;
+            this.ListBox3.ItemHeight = 16;
             this.ListBox3.Location = new System.Drawing.Point(571, 603);
             this.ListBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ListBox3.Name = "ListBox3";
-            this.ListBox3.Size = new System.Drawing.Size(86, 20);
+            this.ListBox3.Size = new System.Drawing.Size(86, 18);
             this.ListBox3.TabIndex = 37;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label7.Location = new System.Drawing.Point(439, 546);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(121, 20);
+            this.label7.Size = new System.Drawing.Size(109, 17);
             this.label7.TabIndex = 39;
             this.label7.Text = "Vehicle velocity:";
             // 
@@ -295,22 +294,22 @@ namespace MQTTHandler
             this.ListBox4.AllowDrop = true;
             this.ListBox4.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ListBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListBox4.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.ListBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ListBox4.FormattingEnabled = true;
-            this.ListBox4.ItemHeight = 18;
+            this.ListBox4.ItemHeight = 16;
             this.ListBox4.Location = new System.Drawing.Point(571, 546);
             this.ListBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ListBox4.Name = "ListBox4";
-            this.ListBox4.Size = new System.Drawing.Size(86, 20);
+            this.ListBox4.Size = new System.Drawing.Size(86, 18);
             this.ListBox4.TabIndex = 38;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.label8.Location = new System.Drawing.Point(385, 519);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(169, 20);
+            this.label8.Size = new System.Drawing.Size(153, 17);
             this.label8.TabIndex = 41;
             this.label8.Text = "Heading (N-clockwise):";
             // 
@@ -319,28 +318,28 @@ namespace MQTTHandler
             this.ListBox5.AllowDrop = true;
             this.ListBox5.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ListBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListBox5.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.ListBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ListBox5.FormattingEnabled = true;
-            this.ListBox5.ItemHeight = 18;
+            this.ListBox5.ItemHeight = 16;
             this.ListBox5.Location = new System.Drawing.Point(571, 518);
             this.ListBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ListBox5.Name = "ListBox5";
-            this.ListBox5.Size = new System.Drawing.Size(86, 20);
+            this.ListBox5.Size = new System.Drawing.Size(86, 18);
             this.ListBox5.TabIndex = 40;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Montserrat", 12F);
-            this.label9.Location = new System.Drawing.Point(524, 487);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label9.Location = new System.Drawing.Point(581, 538);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(122, 27);
+            this.label9.Size = new System.Drawing.Size(110, 25);
             this.label9.TabIndex = 42;
             this.label9.Text = "Cart Status";
             // 
             // button_loop
             // 
-            this.button_loop.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_loop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_loop.Location = new System.Drawing.Point(12, 399);
             this.button_loop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_loop.Name = "button_loop";
@@ -352,7 +351,7 @@ namespace MQTTHandler
             // 
             // button_req
             // 
-            this.button_req.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_req.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_req.Location = new System.Drawing.Point(11, 348);
             this.button_req.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_req.Name = "button_req";
@@ -364,7 +363,7 @@ namespace MQTTHandler
             // 
             // button_raw
             // 
-            this.button_raw.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_raw.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_raw.Location = new System.Drawing.Point(11, 601);
             this.button_raw.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_raw.Name = "button_raw";
@@ -376,7 +375,7 @@ namespace MQTTHandler
             // 
             // button_set
             // 
-            this.button_set.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_set.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_set.Location = new System.Drawing.Point(180, 348);
             this.button_set.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_set.Name = "button_set";
@@ -388,7 +387,7 @@ namespace MQTTHandler
             // 
             // button_data
             // 
-            this.button_data.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_data.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_data.Location = new System.Drawing.Point(235, 399);
             this.button_data.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_data.Name = "button_data";
@@ -409,7 +408,7 @@ namespace MQTTHandler
             // 
             // button_show
             // 
-            this.button_show.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_show.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_show.Location = new System.Drawing.Point(11, 550);
             this.button_show.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_show.Name = "button_show";
@@ -422,10 +421,10 @@ namespace MQTTHandler
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Montserrat", 12F);
-            this.label10.Location = new System.Drawing.Point(439, 646);
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label10.Location = new System.Drawing.Point(419, 634);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(198, 27);
+            this.label10.Size = new System.Drawing.Size(173, 25);
             this.label10.TabIndex = 53;
             this.label10.Text = "Connection Status";
             // 
@@ -434,28 +433,28 @@ namespace MQTTHandler
             this.ListBox6.AllowDrop = true;
             this.ListBox6.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ListBox6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ListBox6.Font = new System.Drawing.Font("Montserrat", 8F);
+            this.ListBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.ListBox6.FormattingEnabled = true;
-            this.ListBox6.ItemHeight = 18;
-            this.ListBox6.Location = new System.Drawing.Point(571, 677);
+            this.ListBox6.ItemHeight = 16;
+            this.ListBox6.Location = new System.Drawing.Point(551, 665);
             this.ListBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ListBox6.Name = "ListBox6";
-            this.ListBox6.Size = new System.Drawing.Size(86, 20);
+            this.ListBox6.Size = new System.Drawing.Size(86, 18);
             this.ListBox6.TabIndex = 54;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Montserrat", 8F);
-            this.label11.Location = new System.Drawing.Point(448, 679);
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.label11.Location = new System.Drawing.Point(428, 667);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(113, 20);
+            this.label11.Size = new System.Drawing.Size(99, 17);
             this.label11.TabIndex = 55;
             this.label11.Text = "Connecting to:";
             // 
             // button_reverse
             // 
-            this.button_reverse.Font = new System.Drawing.Font("Montserrat", 9F, System.Drawing.FontStyle.Bold);
+            this.button_reverse.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.button_reverse.Location = new System.Drawing.Point(126, 399);
             this.button_reverse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_reverse.Name = "button_reverse";
@@ -471,6 +470,7 @@ namespace MQTTHandler
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1112, 727);
+            this.Controls.Add(this.ListBox1);
             this.Controls.Add(this.button_reverse);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.ListBox6);
@@ -501,7 +501,6 @@ namespace MQTTHandler
             this.Controls.Add(this.button_unlock);
             this.Controls.Add(this.button_choose);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.ListBox1);
             this.Controls.Add(this.button_send);
             this.Controls.Add(this.button_conn);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
